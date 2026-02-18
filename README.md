@@ -102,7 +102,7 @@ Reading package lists... Done
 
 ## Requirements
 
-* python (3.12+)
+* Python (3.12+)
 
 ##### [Back to Contents](#contents)
 
