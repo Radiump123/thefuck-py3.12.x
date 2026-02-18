@@ -1,9 +1,8 @@
-# The Fuck [![Version][version-badge]][version-link] [![Build Status][workflow-badge]][workflow-link] [![Coverage][coverage-badge]][coverage-link] [![MIT License][license-badge]](LICENSE.md)
+# The Fuck (Python 3.12.X patch) [![Version][version-badge]][version-link] [![Build Status][workflow-badge]][workflow-link] [![Coverage][coverage-badge]][coverage-link] [![MIT License][license-badge]](LICENSE.md)
 
 *The Fuck* is a magnificent app, inspired by a [@liamosaur](https://twitter.com/liamosaur/)
 [tweet](https://twitter.com/liamosaur/status/506975850596536320),
 that corrects errors in previous console commands.
-
 
 Is *The Fuck* too slow? [Try the experimental instant mode!](#experimental-instant-mode)
 
@@ -94,104 +93,18 @@ Reading package lists... Done
 ## Contents
 
 1. [Requirements](#requirements)
-2. [Installations](#installation)
-3. [Updating](#updating)
-4. [How it works](#how-it-works)
-5. [Creating your own rules](#creating-your-own-rules)
-6. [Settings](#settings)
-7. [Third party packages with rules](#third-party-packages-with-rules)
-8. [Experimental instant mode](#experimental-instant-mode)
-9. [Developing](#developing)
-10. [License](#license-mit)
+2. [How it works](#how-it-works)
+3. [Creating your own rules](#creating-your-own-rules)
+4. [Settings](#settings)
+5. [Experimental instant mode](#experimental-instant-mode)
+6. [Developing](#developing)
+7. [License](#license-mit)
 
 ## Requirements
 
-- python (3.5+)
-- pip
-- python-dev
+* python (3.12+)
 
 ##### [Back to Contents](#contents)
-
-## Installation
-
-On macOS or Linux, you can install *The Fuck* via [Homebrew][homebrew]:
-
-```bash
-brew install thefuck
-```
-
-On Ubuntu / Mint, install *The Fuck* with the following commands:
-```bash
-sudo apt update
-sudo apt install python3-dev python3-pip python3-setuptools
-pip3 install thefuck --user
-```
-
-On FreeBSD, install *The Fuck* with the following commands:
-```bash
-pkg install thefuck
-```
-
-On ChromeOS, install *The Fuck* using [chromebrew](https://github.com/skycocker/chromebrew) with the following command:
-```bash
-crew install thefuck
-```
-
-On Arch based systems, install *The Fuck* with the following command:
-```
-sudo pacman -S thefuck
-```
-
-On other systems, install *The Fuck*  by using `pip`:
-
-```bash
-pip install thefuck
-```
-
-[Alternatively, you may use an OS package manager (OS X, Ubuntu, Arch).](https://github.com/nvbn/thefuck/wiki/Installation)
-
-<a href='#manual-installation' name='manual-installation'>#</a>
-It is recommended that you place this command in your `.bash_profile`,
-`.bashrc`, `.zshrc` or other startup script:
-
-```bash
-eval $(thefuck --alias)
-# You can use whatever you want as an alias, like for Mondays:
-eval $(thefuck --alias FUCK)
-```
-
-[Or in your shell config (Bash, Zsh, Fish, Powershell, tcsh).](https://github.com/nvbn/thefuck/wiki/Shell-aliases)
-
-Changes are only available in a new shell session. To make changes immediately
-available, run `source ~/.bashrc` (or your shell config file like `.zshrc`).
-
-To run fixed commands without confirmation, use the `--yeah` option (or just `-y` for short, or `--hard` if you're especially frustrated):
-
-```bash
-fuck --yeah
-```
-
-To fix commands recursively until succeeding, use the `-r` option:
-
-```bash
-fuck -r
-```
-
-##### [Back to Contents](#contents)
-
-## Updating
-
-```bash
-pip3 install thefuck --upgrade
-```
-
-**Note: Alias functionality was changed in v1.34 of *The Fuck***
-
-## Uninstall
-
-To remove *The Fuck*, reverse the installation process:
-- erase or comment *thefuck* alias line from your Bash, Zsh, Fish, Powershell, tcsh, ... shell config
-- use your package manager (brew, pip3, pkg, crew, pip) to uninstall the binaries
 
 ## How it works
 
@@ -351,35 +264,6 @@ following rules are enabled by default:
 
 ##### [Back to Contents](#contents)
 
-The following rules are enabled by default on specific platforms only:
-
-* `apt_get` &ndash; installs app from apt if it not installed (requires `python-commandnotfound` / `python3-commandnotfound`);
-* `apt_get_search` &ndash; changes trying to search using `apt-get` with searching using `apt-cache`;
-* `apt_invalid_operation` &ndash; fixes invalid `apt` and `apt-get` calls, like `apt-get isntall vim`;
-* `apt_list_upgradable` &ndash; helps you run `apt list --upgradable` after `apt update`;
-* `apt_upgrade` &ndash; helps you run `apt upgrade` after `apt list --upgradable`;
-* `brew_cask_dependency` &ndash; installs cask dependencies;
-* `brew_install` &ndash; fixes formula name for `brew install`;
-* `brew_reinstall` &ndash; turns `brew install <formula>` into `brew reinstall <formula>`;
-* `brew_link` &ndash; adds `--overwrite --dry-run` if linking fails;
-* `brew_uninstall` &ndash; adds `--force` to `brew uninstall` if multiple versions were installed;
-* `brew_unknown_command` &ndash; fixes wrong brew commands, for example `brew docto/brew doctor`;
-* `brew_update_formula` &ndash; turns `brew update <formula>` into `brew upgrade <formula>`;
-* `dnf_no_such_command` &ndash; fixes mistyped DNF commands;
-* `nixos_cmd_not_found` &ndash; installs apps on NixOS;
-* `pacman` &ndash; installs app with `pacman` if it is not installed (uses `yay`, `pikaur` or `yaourt` if available);
-* `pacman_invalid_option` &ndash; replaces lowercase `pacman` options with uppercase.
-* `pacman_not_found` &ndash; fixes package name with `pacman`, `yay`, `pikaur` or `yaourt`.
-* `yum_invalid_operation` &ndash; fixes invalid `yum` calls, like `yum isntall vim`;
-
-The following commands are bundled with *The Fuck*, but are not enabled by
-default:
-
-* `git_push_force` &ndash; adds `--force-with-lease` to a `git push` (may conflict with `git_push_pull`);
-* `rm_root` &ndash; adds `--no-preserve-root` to `rm -rf /` command.
-
-##### [Back to Contents](#contents)
-
 ## Creating your own rules
 
 To add your own rule, create a file named `your-rule-name.py`
@@ -390,71 +274,35 @@ match(command: Command) -> bool
 get_new_command(command: Command) -> str | list[str]
 ```
 
-Additionally, rules can contain optional functions:
+Optional functions and variables:
 
 ```python
 side_effect(old_command: Command, fixed_command: str) -> None
+enabled_by_default
+requires_output
+priority
 ```
-Rules can also contain the optional variables `enabled_by_default`, `requires_output` and `priority`.
 
-`Command` has three attributes: `script`, `output` and `script_parts`.
-Your rule should not change `Command`.
-
-
-**Rules api changed in 3.0:** To access a rule's settings, import it with
- `from thefuck.conf import settings`
-
-`settings` is a special object assembled from `~/.config/thefuck/settings.py`,
-and values from env ([see more below](#settings)).
-
-A simple example rule for running a script with `sudo`:
+Example: prepend `sudo` on permission errors:
 
 ```python
 def match(command):
     return ('permission denied' in command.output.lower()
             or 'EACCES' in command.output)
 
-
 def get_new_command(command):
     return 'sudo {}'.format(command.script)
 
-# Optional:
 enabled_by_default = True
-
-def side_effect(command, fixed_command):
-    subprocess.call('chmod 777 .', shell=True)
-
-priority = 1000  # Lower first, default is 1000
-
+priority = 1000
 requires_output = True
 ```
-
-[More examples of rules](https://github.com/nvbn/thefuck/tree/master/thefuck/rules),
-[utility functions for rules](https://github.com/nvbn/thefuck/tree/master/thefuck/utils.py),
-[app/os-specific helpers](https://github.com/nvbn/thefuck/tree/master/thefuck/specific/).
 
 ##### [Back to Contents](#contents)
 
 ## Settings
 
-Several *The Fuck* parameters can be changed in the file `$XDG_CONFIG_HOME/thefuck/settings.py`
-(`$XDG_CONFIG_HOME` defaults to `~/.config`):
-
-* `rules` &ndash; list of enabled rules, by default `thefuck.const.DEFAULT_RULES`;
-* `exclude_rules` &ndash; list of disabled rules, by default `[]`;
-* `require_confirmation` &ndash; requires confirmation before running new command, by default `True`;
-* `wait_command` &ndash; the max amount of time in seconds for getting previous command output;
-* `no_colors` &ndash; disable colored output;
-* `priority` &ndash; dict with rules priorities, rule with lower `priority` will be matched first;
-* `debug` &ndash; enables debug output, by default `False`;
-* `history_limit` &ndash; the numeric value of how many history commands will be scanned, like `2000`;
-* `alter_history` &ndash; push fixed command to history, by default `True`;
-* `wait_slow_command` &ndash; max amount of time in seconds for getting previous command output if it in `slow_commands` list;
-* `slow_commands` &ndash; list of slow commands;
-* `num_close_matches` &ndash; the maximum number of close matches to suggest, by default `3`.
-* `excluded_search_path_prefixes` &ndash; path prefixes to ignore when searching for commands, by default `[]`.
-
-An example of `settings.py`:
+Config file: `$XDG_CONFIG_HOME/thefuck/settings.py` (`$XDG_CONFIG_HOME` defaults to `~/.config`):
 
 ```python
 rules = ['sudo', 'no_command']
@@ -472,23 +320,6 @@ num_close_matches = 5
 
 Or via environment variables:
 
-* `THEFUCK_RULES` &ndash; list of enabled rules, like `DEFAULT_RULES:rm_root` or `sudo:no_command`;
-* `THEFUCK_EXCLUDE_RULES` &ndash; list of disabled rules, like `git_pull:git_push`;
-* `THEFUCK_REQUIRE_CONFIRMATION` &ndash; require confirmation before running new command, `true/false`;
-* `THEFUCK_WAIT_COMMAND` &ndash; the max amount of time in seconds for getting previous command output;
-* `THEFUCK_NO_COLORS` &ndash; disable colored output, `true/false`;
-* `THEFUCK_PRIORITY` &ndash; priority of the rules, like `no_command=9999:apt_get=100`,
-rule with lower `priority` will be matched first;
-* `THEFUCK_DEBUG` &ndash; enables debug output, `true/false`;
-* `THEFUCK_HISTORY_LIMIT` &ndash; how many history commands will be scanned, like `2000`;
-* `THEFUCK_ALTER_HISTORY` &ndash; push fixed command to history `true/false`;
-* `THEFUCK_WAIT_SLOW_COMMAND` &ndash; the max amount of time in seconds for getting previous command output if it in `slow_commands` list;
-* `THEFUCK_SLOW_COMMANDS` &ndash; list of slow commands, like `lein:gradle`;
-* `THEFUCK_NUM_CLOSE_MATCHES` &ndash; the maximum number of close matches to suggest, like `5`.
-* `THEFUCK_EXCLUDED_SEARCH_PATH_PREFIXES` &ndash; path prefixes to ignore when searching for commands, by default `[]`.
-
-For example:
-
 ```bash
 export THEFUCK_RULES='sudo:no_command'
 export THEFUCK_EXCLUDE_RULES='git_pull:git_push'
@@ -497,46 +328,21 @@ export THEFUCK_WAIT_COMMAND=10
 export THEFUCK_NO_COLORS='false'
 export THEFUCK_PRIORITY='no_command=9999:apt_get=100'
 export THEFUCK_HISTORY_LIMIT='2000'
-export THEFUCK_NUM_CLOSE_MATCHES='5'
+export THEFUCK_ALTER_HISTORY='true'
+export THEFUCK_WAIT_SLOW_COMMAND=20
+export THEFUCK_SLOW_COMMANDS='lein:gradle'
+export THEFUCK_NUM_CLOSE_MATCHES=5
 ```
-
-##### [Back to Contents](#contents)
-
-## Third-party packages with rules
-
-If you'd like to make a specific set of non-public rules, but would still like
-to share them with others, create a package named `thefuck_contrib_*` with
-the following structure:
-
-```
-thefuck_contrib_foo
-  thefuck_contrib_foo
-    rules
-      __init__.py
-      *third-party rules*
-    __init__.py
-    *third-party-utils*
-  setup.py
-```
-
-*The Fuck* will find rules located in the `rules` module.
 
 ##### [Back to Contents](#contents)
 
 ## Experimental instant mode
 
-The default behavior of *The Fuck* requires time to re-run previous commands.
-When in instant mode, *The Fuck* saves time by logging output with [script](https://en.wikipedia.org/wiki/Script_(Unix)),
-then reading the log.
+Instant mode logs output with [script](https://en.wikipedia.org/wiki/Script_%28Unix%29)
+then reads the log, skipping slow re-runs. Supports Python 3 with bash or zsh.
+zsh autocorrect must be disabled.
 
-[![gif with instant mode][instant-mode-gif-link]][instant-mode-gif-link]
-
-Currently, instant mode only supports Python 3 with bash or zsh. zsh's autocorrect function also needs to be disabled in order for thefuck to work properly.
-
-To enable instant mode, add `--enable-experimental-instant-mode`
-to the alias initialization in `.bashrc`, `.bash_profile` or `.zshrc`.
-
-For example:
+Enable in `.bashrc` or `.zshrc`:
 
 ```bash
 eval $(thefuck --alias --enable-experimental-instant-mode)
@@ -549,18 +355,5 @@ eval $(thefuck --alias --enable-experimental-instant-mode)
 See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License MIT
+
 Project License can be found [here](LICENSE.md).
-
-
-[version-badge]:   https://img.shields.io/pypi/v/thefuck.svg?label=version
-[version-link]:    https://pypi.python.org/pypi/thefuck/
-[workflow-badge]:  https://github.com/nvbn/thefuck/workflows/Tests/badge.svg
-[workflow-link]:   https://github.com/nvbn/thefuck/actions?query=workflow%3ATests
-[coverage-badge]:  https://img.shields.io/coveralls/nvbn/thefuck.svg
-[coverage-link]:   https://coveralls.io/github/nvbn/thefuck
-[license-badge]:   https://img.shields.io/badge/license-MIT-007EC7.svg
-[examples-link]:   https://raw.githubusercontent.com/nvbn/thefuck/master/example.gif
-[instant-mode-gif-link]:   https://raw.githubusercontent.com/nvbn/thefuck/master/example_instant_mode.gif
-[homebrew]:        https://brew.sh/
-
-##### [Back to Contents](#contents)
