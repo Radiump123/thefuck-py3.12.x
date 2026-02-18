@@ -1,4 +1,5 @@
 # The Fuck (Python 3.12.X patch)
+Forked from [nvbn/thefuck](https://github.com/nvbn/thefuck)
 
 *The Fuck* is a magnificent app, inspired by a [@liamosaur](https://twitter.com/liamosaur/)
 [tweet](https://twitter.com/liamosaur/status/506975850596536320),
