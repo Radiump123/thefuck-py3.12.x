@@ -6,12 +6,12 @@ update The Fuck and see if the bug is still there. -->
 if not, just open an issue on [GitHub](https://github.com/nvbn/thefuck) with
 the following basic information: -->
 
-The output of `thefuck --version` (something like `The Fuck 3.1 using Python
-3.5.0 and Bash 4.4.12(1)-release`):
+The output of `thefuck --version` (something like `The Fuck 4.0 using Python
+3.12.3 and Bash 5.2.21(1)-release`):
 
     FILL THIS IN
 
-Your system (Debian 7, ArchLinux, Windows, etc.):
+Your system (Debian 13, ArchLinux, Windows, etc.):
 
     FILL THIS IN
 
