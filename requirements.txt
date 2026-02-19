@@ -10,3 +10,4 @@ pytest-benchmark
 pytest-docker-pexpect
 twine
 decorator
+pyte
