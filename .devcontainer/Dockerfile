@@ -1,7 +1,7 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.163.1/containers/python-3/.devcontainer/base.Dockerfile
 
-# [Choice] Python version: 3, 3.12
-ARG VARIANT="3"
+# [Choice] Python version: 3.12
+ARG VARIANT="3.12"
 FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
 
 # [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.
