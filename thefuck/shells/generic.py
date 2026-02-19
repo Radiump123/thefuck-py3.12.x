@@ -51,6 +51,8 @@ class Generic(object):
 
     @memoize
     def get_history(self):
+        if self.__class__ is Generic:
+            return []
         return list(self._get_history_lines())
 
     def _get_history_lines(self):

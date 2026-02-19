@@ -1,4 +1,16 @@
-import importlib.machinery
+try:
+    import importlib.util
+
+    def load_source(name, pathname):
+        module_spec = importlib.util.spec_from_file_location(name, pathname)
+        module = importlib.util.module_from_spec(module_spec)
+        module_spec.loader.exec_module(module)
+        return module
+except ImportError:
+    import imp
+
+    def load_source(name, pathname):
+        return imp.load_source(name, pathname)
 import os
 import sys
 from . import logs
@@ -141,7 +153,7 @@ class Rule(object):
             return
         with logs.debug_time(u'Importing rule: {};'.format(name)):
             try:
-                rule_module = importlib.machinery.SourceFileLoader(name, str(path)).load_module()
+                rule_module = load_source(name, str(path))
             except Exception:
                 logs.exception(u"Rule {} failed to load".format(name), sys.exc_info())
                 return
