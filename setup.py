@@ -21,7 +21,7 @@ if os.environ.get('CONVERT_README'):
 else:
     long_description = ''
 
-VERSION = '4.0'
+VERSION = '0.4.0'
 
 install_requires = ['psutil', 'colorama', 'six']
 
