@@ -19,12 +19,12 @@ if os.environ.get('CONVERT_README'):
 else:
     long_description = ''
 
-VERSION = '3.32'
+VERSION = '4.0'
 
 install_requires = ['psutil', 'colorama', 'six']
 
 extras_require = {
-    ':python_version>"2.7"': ['decorator', 'pyte'],
+    ':python_version>"3.12"': ['decorator', 'pyte'],
     ":sys_platform=='win32'": ['win_unicode_console']
 }
 
