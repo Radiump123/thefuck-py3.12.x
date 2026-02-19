@@ -14,7 +14,10 @@ try:
         module_spec.loader.exec_module(module)
         return module
 except ImportError:
-    import importlib.machinery
+    import imp
+
+    def load_source(name, pathname, _file=None):
+        return imp.load_source(name, pathname, _file)
 
 
 class Settings(dict):
@@ -76,7 +79,7 @@ class Settings(dict):
 
     def _settings_from_file(self):
         """Loads settings from file."""
-        settings = importlib.machinery.SourceFileLoader('settings', text_type(self.user_dir.joinpath('settings.py'))).load_module()
+        settings = load_source('settings', text_type(self.user_dir.joinpath('settings.py')))
         return {key: getattr(settings, key)
                 for key in const.DEFAULT_SETTINGS.keys()
                 if hasattr(settings, key)}

@@ -119,6 +119,7 @@ following rules are enabled by default:
 * `ag_literal` &ndash; adds `-Q` to `ag` when suggested;
 * `aws_cli` &ndash; fixes misspelled commands like `aws dynamdb scan`;
 * `az_cli` &ndash; fixes misspelled commands like `az providers`;
+* `brew_cask_dependency` &ndash; installs Homebrew cask dependencies before retrying the command;
 * `cargo` &ndash; runs `cargo build` instead of `cargo`;
 * `cargo_no_command` &ndash; fixes wrong commands like `cargo buid`;
 * `cat_dir` &ndash; replaces `cat` with `ls` when you try to `cat` a directory;
@@ -264,6 +265,7 @@ following rules are enabled by default:
 * `yarn_command_not_found` &ndash; fixes misspelled `yarn` commands;
 * `yarn_command_replaced` &ndash; fixes replaced `yarn` commands;
 * `yarn_help` &ndash; makes it easier to open `yarn` documentation;
+* Additional bundled rules include `apt_get_search`, `apt_invalid_operation`, `apt_list_upgradable`, `apt_upgrade`, `brew_install`, `brew_link`, `brew_reinstall`, `brew_uninstall`, `brew_unknown_command`, `brew_update_formula`, `dnf_no_such_command`, `git_push_force`, `nixos_cmd_not_found`, `pacman`, `pacman_invalid_option`, `pacman_not_found`, `rm_root`, and `yum_invalid_operation`.
 
 ##### [Back to Contents](#contents)
 
