@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Will be deprecated soon
+
 from setuptools import setup, find_packages
 import sys
 import os
