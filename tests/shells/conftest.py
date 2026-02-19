@@ -12,8 +12,7 @@ def isfile(mocker):
 
 
 @pytest.fixture
-@pytest.mark.usefixtures('isfile')
-def history_lines(mocker):
+def history_lines(mocker, isfile):  # inject the fixture instead of marking, just trying out some patche
     def aux(lines):
         mock = mocker.patch('io.open')
         mock.return_value.__enter__ \
