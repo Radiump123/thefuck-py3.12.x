@@ -7,9 +7,8 @@ that corrects errors in previous console commands.
 
 Is *The Fuck* too slow? [Try the experimental instant mode!](#experimental-instant-mode)
 
-| :warning: WARNING                                                                |
-|:---------------------------------------------------------------------------------|
-| THIS SOFTWARE IS UNSTABLE AND UNDER HEAVY PATCHING, USE IT AT YOUR OWN RISK      |
+> [!WARNING]
+> THIS SOFTWARE IS UNDER HEAVY PATCHING, USE IT AT YOUR OWN RISK.
 
 
 More examples:
