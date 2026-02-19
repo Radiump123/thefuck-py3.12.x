@@ -340,7 +340,7 @@ export THEFUCK_NUM_CLOSE_MATCHES=5
 ## Experimental instant mode
 
 Instant mode logs output with [script](https://en.wikipedia.org/wiki/Script_%28Unix%29)
-then reads the log, skipping slow re-runs. Supports Python 3 with bash or zsh.
+then reads the log, skipping slow re-runs. Supports Python 3.12 with bash or zsh.
 zsh autocorrect must be disabled.
 
 Enable in `.bashrc` or `.zshrc`:
