@@ -3,11 +3,21 @@ import six
 import os
 from mock import Mock
 from thefuck import const
+from thefuck.conf import load_source as conf_load_source
 
 
 @pytest.fixture
 def load_source(mocker):
     return mocker.patch('thefuck.conf.load_source')
+
+
+@pytest.mark.parametrize('spec', [None, Mock(loader=None)])
+def test_load_source_raises_import_error_on_invalid_module_spec(mocker, spec):
+    mocker.patch('thefuck.conf.importlib.util.spec_from_file_location',
+                 return_value=spec)
+
+    with pytest.raises(ImportError):
+        conf_load_source('settings', '/tmp/missing_settings.py')
 
 
 def test_settings_defaults(load_source, settings):
