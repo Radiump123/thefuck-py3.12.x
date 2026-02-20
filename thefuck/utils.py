@@ -108,9 +108,28 @@ def include_path_in_search(path):
     return not any(path.startswith(x) for x in settings.excluded_search_path_prefixes)
 
 
-@memoize
 def get_all_executables():
     from thefuck.shells import shell
+
+    aliases = shell.get_aliases()
+    if isinstance(aliases, dict):
+        aliases = tuple(sorted(aliases.keys()))
+    else:
+        aliases = tuple(sorted(aliases))
+
+    return _get_all_executables(
+        os.environ.get('PATH', ''),
+        tuple(settings.excluded_search_path_prefixes),
+        get_alias(),
+        aliases,
+        id(Path))
+
+
+@memoize
+def _get_all_executables(paths, excluded_search_path_prefixes,
+                         tf_alias, aliases, _path_provider_id):
+    def _include_path(path):
+        return not any(path.startswith(x) for x in excluded_search_path_prefixes)
 
     def _safe(fn, fallback):
         try:
@@ -118,17 +137,16 @@ def get_all_executables():
         except OSError:
             return fallback
 
-    tf_alias = get_alias()
     tf_entry_points = ['thefuck', 'fuck']
 
     bins = [exe.name.decode('utf8') if six.PY2 else exe.name
-            for path in os.environ.get('PATH', '').split(os.pathsep)
-            if include_path_in_search(path)
+            for path in paths.split(os.pathsep)
+            if _include_path(path)
             for exe in _safe(lambda: list(Path(path).iterdir()), [])
             if not _safe(exe.is_dir, True)
             and exe.name not in tf_entry_points]
     aliases = [alias.decode('utf8') if six.PY2 else alias
-               for alias in shell.get_aliases() if alias != tf_alias]
+               for alias in aliases if alias != tf_alias]
 
     return bins + aliases
 
