@@ -35,8 +35,18 @@ This is better.
 (c) 2016, Aaron Christianson
 http://github.com/ninjaaron/fast-entry_points
 '''
+import warnings
+
 from setuptools.command import easy_install
+from setuptools.warnings import SetuptoolsDeprecationWarning
 import re
+
+# Silence setuptools deprecation noise for legacy easy_install access in this shim.
+warnings.filterwarnings(
+    "ignore",
+    message=r".*setuptools\.command\.easy_install.*",
+    category=SetuptoolsDeprecationWarning,
+)
 TEMPLATE = r'''\
 # -*- coding: utf-8 -*-
 # EASY-INSTALL-ENTRY-SCRIPT: '{3}','{4}','{5}'
@@ -74,7 +84,9 @@ def get_args(cls, dist, header=None):
                 yield res
 
 
-easy_install.ScriptWriter.get_args = get_args
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    easy_install.ScriptWriter.get_args = get_args
 
 
 def main():
@@ -107,4 +119,3 @@ def main():
                 setup.truncate()
                 setup.write('import fastentrypoints\n' + setup_content)
 
-print(__name__)
