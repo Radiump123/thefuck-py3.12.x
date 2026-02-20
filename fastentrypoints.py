@@ -41,8 +41,6 @@ from setuptools.command import easy_install
 from setuptools.warnings import SetuptoolsDeprecationWarning
 import re
 
-_original_get_args = None
-
 # Silence setuptools deprecation noise for legacy easy_install access in this shim.
 warnings.filterwarnings(
     "ignore",
@@ -109,7 +107,6 @@ def get_args(cls, dist, header=None):
 
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
-    _original_get_args = easy_install.ScriptWriter.get_args
     easy_install.ScriptWriter.get_args = get_args
 
 
