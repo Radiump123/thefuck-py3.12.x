@@ -1,11 +1,12 @@
+import importlib.util
 import os
 import sys
 from warnings import warn
+
 from six import text_type
+
 from . import const
 from .system import Path
-
-import importlib.util
 
 
 def load_source(name, pathname, _file=None):
