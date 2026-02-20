@@ -1,6 +1,7 @@
-import importlib.machinery
+import importlib.util
 import os
 import sys
+
 from . import logs
 from .shells import shell
 from .conf import settings
@@ -8,6 +9,15 @@ from .const import DEFAULT_PRIORITY, ALL_ENABLED
 from .exceptions import EmptyCommand
 from .utils import get_alias, format_raw_script
 from .output_readers import get_output
+
+
+def load_source(name, pathname):
+    module_spec = importlib.util.spec_from_file_location(name, pathname)
+    if module_spec is None or module_spec.loader is None:
+        raise ImportError('Unable to load module {} from {}'.format(name, pathname))
+    module = importlib.util.module_from_spec(module_spec)
+    module_spec.loader.exec_module(module)
+    return module
 
 
 class Command(object):
@@ -141,7 +151,7 @@ class Rule(object):
             return
         with logs.debug_time(u'Importing rule: {};'.format(name)):
             try:
-                rule_module = importlib.machinery.SourceFileLoader(name, str(path)).load_module()
+                rule_module = load_source(name, str(path))
             except Exception:
                 logs.exception(u"Rule {} failed to load".format(name), sys.exc_info())
                 return
