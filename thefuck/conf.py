@@ -1,4 +1,3 @@
-import importlib.util
 import os
 import sys
 from warnings import warn
@@ -8,9 +7,13 @@ from six import text_type
 from . import const
 from .system import Path
 
+try:
+    import importlib.util
 
     def load_source(name, pathname, _file=None):
         module_spec = importlib.util.spec_from_file_location(name, pathname)
+        if module_spec is None or module_spec.loader is None:
+            raise ImportError('Unable to load module {} from {}'.format(name, pathname))
         module = importlib.util.module_from_spec(module_spec)
         module_spec.loader.exec_module(module)
         return module

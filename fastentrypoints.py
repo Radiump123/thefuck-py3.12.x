@@ -35,8 +35,20 @@ This is better.
 (c) 2016, Aaron Christianson
 http://github.com/ninjaaron/fast-entry_points
 '''
+import warnings
+
 from setuptools.command import easy_install
+from setuptools.warnings import SetuptoolsDeprecationWarning
 import re
+
+_original_get_args = None
+
+# Silence setuptools deprecation noise for legacy easy_install access in this shim.
+warnings.filterwarnings(
+    "ignore",
+    message=r".*setuptools\.command\.easy_install.*",
+    category=SetuptoolsDeprecationWarning,
+)
 TEMPLATE = r'''\
 # -*- coding: utf-8 -*-
 # EASY-INSTALL-ENTRY-SCRIPT: '{3}','{4}','{5}'
@@ -51,30 +63,54 @@ if __name__ == '__main__':
     sys.exit({2}())'''
 
 
+def _distribution_requirement(dist):
+    """Return a requirement-like string for setuptools script metadata."""
+    as_requirement = getattr(dist, 'as_requirement', None)
+    if callable(as_requirement):
+        return str(as_requirement())
+
+    metadata = getattr(dist, 'metadata', None)
+    name = getattr(dist, 'project_name', None) or getattr(dist, 'name', None)
+    version = getattr(dist, 'version', None)
+
+    if metadata is not None:
+        get_meta = getattr(metadata, 'get', None)
+        if callable(get_meta):
+            name = name or get_meta('Name')
+            version = version or get_meta('Version')
+
+    if name and version:
+        return f'{name}=={version}'
+    return name or ''
+
 @classmethod
 def get_args(cls, dist, header=None):
-    """
-    Yield write_script() argument tuples for a distribution's
-    console_scripts and gui_scripts entry points.
-    """
+    """Yield write_script() argument tuples for script entry points."""
     if header is None:
         header = cls.get_header()
-    spec = str(dist.as_requirement())
+
+    if not hasattr(dist, 'get_entry_map'):
+        for res in _original_get_args(dist, header):
+            yield res
+        return
+
+    spec = _distribution_requirement(dist)
     for type_ in 'console', 'gui':
         group = type_ + '_scripts'
         for name, ep in dist.get_entry_map(group).items():
-            # ensure_safe_name
             if re.search(r'[\\/]', name):
                 raise ValueError("Path separators not allowed in script names")
             script_text = TEMPLATE.format(
-                          ep.module_name, ep.attrs[0], '.'.join(ep.attrs),
-                          spec, group, name)
-            args = cls._get_script_args(type_, name, header, script_text)
-            for res in args:
+                ep.module_name, ep.attrs[0], '.'.join(ep.attrs),
+                spec, group, name)
+            for res in cls._get_script_args(type_, name, header, script_text):
                 yield res
 
 
-easy_install.ScriptWriter.get_args = get_args
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    _original_get_args = easy_install.ScriptWriter.get_args
+    easy_install.ScriptWriter.get_args = get_args
 
 
 def main():
@@ -107,4 +143,3 @@ def main():
                 setup.truncate()
                 setup.write('import fastentrypoints\n' + setup_content)
 
-print(__name__)
