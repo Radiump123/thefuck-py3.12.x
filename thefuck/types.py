@@ -1,4 +1,16 @@
-import importlib.util
+try:
+    import importlib.util
+
+    def load_source(name, pathname):
+        module_spec = importlib.util.spec_from_file_location(name, pathname)
+        module = importlib.util.module_from_spec(module_spec)
+        module_spec.loader.exec_module(module)
+        return module
+except ImportError:
+    import imp
+
+    def load_source(name, pathname):
+        return imp.load_source(name, pathname)
 import os
 import sys
 
