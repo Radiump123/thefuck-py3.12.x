@@ -1,5 +1,10 @@
 import pytest
 
+pytest.importorskip(
+    "pytest_docker_pexpect",
+    reason="functional tests require pytest_docker_pexpect",
+)
+
 from pytest_docker_pexpect.docker import run as pexpect_docker_run, \
     stats as pexpect_docker_stats
 
