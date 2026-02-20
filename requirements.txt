@@ -11,3 +11,4 @@ pytest-docker-pexpect
 twine
 decorator
 pyte
+setuptools
