@@ -15,6 +15,10 @@ if sys.version_info < (3, 12):
     )
     sys.exit(-1)
 
+# Show help instead of failing when setup.py is called without any command.
+if len(sys.argv) == 1:
+    sys.argv.append('--help')
+
 if os.environ.get('CONVERT_README'):
     import pypandoc
     long_description = pypandoc.convert_file('README.md', 'rst')

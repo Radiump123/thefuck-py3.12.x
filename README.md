@@ -96,16 +96,46 @@ Reading package lists... Done
 ## Contents
 
 1. [Requirements](#requirements)
-2. [How it works](#how-it-works)
-3. [Creating your own rules](#creating-your-own-rules)
-4. [Settings](#settings)
-5. [Experimental instant mode](#experimental-instant-mode)
-6. [Developing](#developing)
-7. [License](#license-mit)
+2. [How to run the app](#how-to-run-the-app)
+3. [How it works](#how-it-works)
+4. [Creating your own rules](#creating-your-own-rules)
+5. [Settings](#settings)
+6. [Experimental instant mode](#experimental-instant-mode)
+7. [Developing](#developing)
+8. [License](#license-mit)
 
 ## Requirements
 
 * Python (3.12+)
+
+##### [Back to Contents](#contents)
+
+## How to run the app
+
+1. Install dependencies and install the package (editable mode is recommended while developing):
+
+```bash
+pip install -r requirements.txt
+pip install -e .
+```
+
+2. Configure the shell alias (run in the shell you use):
+
+```bash
+eval "$(thefuck --alias)"
+```
+
+3. Trigger a fix by running a wrong command, then run:
+
+```bash
+fuck
+```
+
+4. Optional: verify the CLI is available:
+
+```bash
+thefuck --help
+```
 
 ##### [Back to Contents](#contents)
 
