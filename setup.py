@@ -25,7 +25,7 @@ if os.environ.get('CONVERT_README'):
 else:
     long_description = ''
 
-VERSION = '0.4.0'
+VERSION = '4.1'
 
 install_requires = ['psutil', 'colorama', 'six']
 
@@ -56,9 +56,9 @@ setup(
     version=VERSION,
     description="Magnificent app which corrects your previous console command",
     long_description=long_description,
-    author='Vladimir Iakovlev',
-    author_email='nvbn.rm@gmail.com',
-    url='https://github.com/nvbn/thefuck',
+    author='Infomanraf',
+    author_email='infomanraf.gleaming971@passinbox.com',
+    url='https://github.com/Radiump123/thefuck-py3.12.x',
     license='MIT',
     packages=find_packages(
         exclude=['ez_setup', 'examples', 'tests', 'tests.*', 'release']
