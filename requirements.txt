@@ -12,3 +12,6 @@ twine
 decorator
 pyte
 setuptools
+fastentrypoints
+psutil
+colorama
