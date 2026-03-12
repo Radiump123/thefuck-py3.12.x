@@ -7,7 +7,7 @@ that corrects errors in previous console commands.
 
 Is *The Fuck* too slow? [Try the experimental instant mode!](#experimental-instant-mode)
 
-Python 3.14.X compatibility will soon be added, and the app seems to work fine on Python 3.13.X. 
+The app seems to work fine on Python 3.13.X and on Python 3.14.X. 
 
 > [!WARNING]
 > THIS SOFTWARE IS UNDER HEAVY PATCHING, USE IT AT YOUR OWN RISK.
